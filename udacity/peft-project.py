@@ -1,16 +1,23 @@
 ﻿# parameter-efficient fine-tuning using the Hugging Face peft library
-import torch
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
-from datasets import load_dataset
-from peft import LoraConfig, get_peft_model
+from peft import LoraConfig
+config = LoraConfig()
 
-# Load a pre-trained BERT model and tokenizer
-# MODEL_NAME = "bert-base-uncased"
-# tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-# model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)
+from transformers import AutoModelForCausalLM
+model = AutoModelForCausalLM.from_pretrained("gpt2")
 
-# Load dataset (IMDB sentiment classification)
-# dataset = load_dataset("imdb")
-# train_data, test_data = dataset["train"], dataset["test"]
-dataset = load_dataset("imdb")
-print(dataset)
+from peft import get_peft_model
+lora_model = get_peft_model(model, config)
+
+lora_model.print_trainable_parameters()
+
+lora_model.save_pretrained("gpt-lora")
+
+from peft import AutoPeftModelForCausalLM
+lora_model = AutoPeftModelForCausalLM.from_pretrained("gpt-lora")
+
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+inputs = tokenizer("Hello, my name is ", return_tensors="pt")
+outputs = model.generate(input_ids=inputs["input_ids"], max_new_tokens=10)
+print(tokenizer.batch_decode(outputs))
