@@ -1,4 +1,7 @@
-﻿from peft import LoraConfig
+﻿#Fine-tuning large pretrained models is often prohibitively costly due to their scale.
+#Parameter-Efficient Fine-Tuning (PEFT) methods enable efficient adaptation of large pretrained models to various downstream applications by only fine-tuning a small number of (extra) model parameters instead of all the model's parameters.
+#This significantly decreases the computational and storage costs. Recent state-of-the-art PEFT techniques achieve performance comparable to fully fine-tuned models.
+from peft import LoraConfig
 config = LoraConfig()
 
 MODEL_NAME = "bert-base-uncased"
