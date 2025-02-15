@@ -19,7 +19,7 @@ model.to(device)
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 # Load dataset
-dataset = load_dataset("imdb")
+dataset = load_dataset("stanfordnlp/imdb")
 
 # Tokenize dataset
 def tokenize_function(example):
