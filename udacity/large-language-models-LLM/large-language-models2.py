@@ -1,6 +1,6 @@
 import requests
 
-TOGETHER_API_KEY = ''
+TOGETHER_API_KEY = '92b03e79e980f9f0018c9f75f4598b74ac4c13df5c250b0daeb7f8d15f402c1b'
 ENDPOINT = 'https://api.together.xyz/inference'
 
 # Decoding parameters
