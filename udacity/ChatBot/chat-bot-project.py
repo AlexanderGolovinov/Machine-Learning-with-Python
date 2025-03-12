@@ -83,6 +83,7 @@ def get_embeddings(texts, model="text-embedding-ada-002"):
 
 # Generate embeddings for a subset of our data
 # This might take some time for larger datasets
+
 sample_size = 100  # Adjust based on your API usage limits
 sample_data = chatbot_subset.sample(sample_size, random_state=42)
 
@@ -146,40 +147,18 @@ Please provide a helpful response based only on the information in these reviews
             {"role": "user", "content": prompt}
         ]
     )
-
-    return response.choices[0].message['content']
+    print("Question: " + query)
+    return response.choices[0].message.content
 
 
 # Load our saved embeddings
 with open('food_review_embeddings.pkl', 'rb') as f:
     sample_data = pickle.load(f)
 
-# Basic query (without context)
-question1 = "What are some highly rated chocolate products?"
+response = ""
 
-basic_response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": question1}
-    ]
-)
+response = custom_food_review_query("What are some highly rated chocolate products?", sample_data)
+print(response)
 
-print("Basic Question: " + question1)
-print("Basic Response:")
-print(basic_response.choices[0].message.content)
-
-# Basic query (without context)
-question2= "What products are the healthiest ones?"
-
-basic_response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": question2}
-    ]
-)
-
-print("Basic Question: " + question2)
-print("Basic Response:")
-print(basic_response.choices[0].message.content)
+response = custom_food_review_query("What products are the healthiest ones?", sample_data)
+print(response)
