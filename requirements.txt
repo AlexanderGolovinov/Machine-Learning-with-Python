@@ -24,3 +24,4 @@ helpers~=0.2.0
 viz~=0.0.5
 ipython~=8.18.1
 ema-pytorch~=0.7.7
+pillow~=11.1.0
