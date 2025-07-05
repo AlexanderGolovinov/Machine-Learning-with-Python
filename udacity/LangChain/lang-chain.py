@@ -4,7 +4,8 @@ import os
 base_url = "https://openai.vocareum.com/v1"
 api_key = os.environ.get("OPEN_AI_KEY")
 completion_model_name = "gpt-3.5-turbo-instruct"
-temperature = 0.0
+temperature = 0.0 #basically randomness, 0.0 means deterministic output, higher values like 0.7 introduce more variability
+max_tokens = 100 #parameter that defines the maximum length of the AI's response, crucial for controlling the output size
 
 # Initialize the OpenAI client with the base URL and API key
 completion_llm = OpenAI(
@@ -12,7 +13,7 @@ completion_llm = OpenAI(
     api_key=api_key,
     model_name=completion_model_name,
     temperature=temperature,
-    max_tokens = 100)
+    max_tokens = max_tokens)
 
 print("=== Completion Response ===")
 print(completion_llm("You're a whimsical tour guide to France. Paris is a "))
