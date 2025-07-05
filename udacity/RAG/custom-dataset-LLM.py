@@ -8,7 +8,7 @@ api_key = os.environ.get("OPEN_AI_KEY")
 
 client = OpenAI(
     base_url=base_url,
-    api_key=api_key
+    api_key=api_key,
 )
 
 # Making a GET request
