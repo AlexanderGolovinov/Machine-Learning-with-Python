@@ -239,3 +239,20 @@ if __name__ == "__main__":
         print(f"Title: {m.title}, Neighborhood: {m.neighborhood}, Price: {m.price}, Bedrooms: {m.bedrooms}, Bathrooms: {m.bathrooms}")
         print(f"Original Description: {m.description}")
         print(f"Augmented Description: {augmented}\n")
+
+
+"""
+EXAMPLE OUTPUT:
+
+Top matches for buyer preferences (with tailored descriptions):
+Title: Property 9, Neighborhood: Gold Coast, Chicago, IL, Price: $1,400,000, Bedrooms: 3, Bathrooms: 2
+Original Description: Luxurious condo in the upscale Gold Coast neighborhood. This sophisticated residence features high-end finishes, a private terrace, and stunning views of Lake Michigan and the city skyline.
+Augmented Description: Luxurious 3-bedroom, 2-bathroom condo located in the upscale Gold Coast neighborhood. This sophisticated residence boasts a modern kitchen, high-end finishes, a private terrace, and breathtaking views of Lake Michigan and the city skyline. Just steps away from downtown, this stunning property offers the perfect blend of luxury and convenience within the buyer's budget of $500,000.
+
+Title: Property 8, Neighborhood: Georgetown, Washington, D.C., Price: $1,600,000, Bedrooms: 5, Bathrooms: 4
+Original Description: Elegant townhouse in the historic Georgetown neighborhood. This charming home offers a mix of modern amenities and historic charm, including a gourmet kitchen, cozy fireplace, and a private garden.
+Augmented Description: Beautiful townhouse in the sought-after Georgetown neighborhood, offering 3 spacious bedrooms and 2 updated bathrooms. This meticulously maintained home boasts a modern gourmet kitchen, perfect for entertaining. Enjoy the convenience of being near downtown while still having your own private garden retreat. Priced at $500,000, this property seamlessly blends historic charm with modern amenities, creating the perfect blend of comfort and style.
+
+Title: Property 5, Neighborhood: Buckhead, Atlanta, GA, Price: $1,200,000, Bedrooms: 3, Bathrooms: 3
+Original Description: Contemporary townhouse in the bustling Buckhead district. This sleek home features a rooftop terrace, designer finishes, and a prime location near top-rated restaurants and shops.
+Augmented Description: Modern townhouse in the vibrant Buckhead district, boasting 3 bedrooms and 2 bathrooms. This stylish home offers a contemporary kitchen, a rooftop terrace for entertaining, and designer finishes throughout. Situated near downtown, this prime location also provides easy access to top-rated restaurants and shops. Priced at $500,000, this property is the perfect blend of luxury and convenience for the discerning buyer."""
