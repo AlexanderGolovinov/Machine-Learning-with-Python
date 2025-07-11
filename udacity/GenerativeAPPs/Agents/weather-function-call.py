@@ -7,7 +7,6 @@ openai.api_base = "https://openai.vocareum.com/v1"
 
 # Define OpenAI API key
 api_key = os.environ.get("API_KEY")
-openai.api_key = api_key
 
 
 def get_weather(latitude, longitude):
@@ -45,7 +44,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "get_weather",
-            "description": "Get current temperature for a given location.",
+            "description": "Get current wind speed for a given location.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -73,6 +72,7 @@ messages = [
 try:
     # Try using the response format directly
     response = openai.ChatCompletion.create(
+        api_key=api_key,
         model="gpt-3.5-turbo",
         messages=messages,
         tools=tools,
