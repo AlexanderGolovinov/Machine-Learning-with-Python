@@ -9,8 +9,6 @@ import pyarrow as pa
 from sentence_transformers import SentenceTransformer
 
 openai.api_base = "https://openai.vocareum.com/v1"
-
-# Define OpenAI API key
 api_key = os.environ.get("API_KEY")
 
 prompt = """
