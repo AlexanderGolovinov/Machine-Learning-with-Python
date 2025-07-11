@@ -186,3 +186,31 @@ except Exception as e:
     print(f"Error processing listings: {e}")
     import traceback
     traceback.print_exc()
+
+listings = parse_listings(listings_response)
+
+# --- Semantic Search Implementation ---
+def embed_preferences(preferences: str, model=None):
+    """Embed buyer preferences using the same embedding model as listings."""
+    if model is None:
+        model = SentenceTransformer('all-MiniLM-L6-v2')
+    return model.encode([preferences])[0]
+
+def search_listings(preferences: str, top_k: int = 5):
+    """Search LanceDB for listings most similar to buyer preferences."""
+    # Reuse the embedding model
+    pref_embedding = embed_preferences(preferences, model)
+    db = lancedb.connect(DB_PATH)
+    table = db.open_table(TABLE_NAME)
+    results = table.search(pref_embedding).limit(top_k).to_pydantic(Listing)
+    return results
+
+# Example usage of the search function
+user_prompt = "3 bedrooms, 2 bathrooms, modern kitchen, near downtown, budget $500,000"
+
+if __name__ == "__main__":
+    buyer_preferences = user_prompt
+    matches = search_listings(buyer_preferences, top_k=3)
+    print("\nTop matches for buyer preferences:")
+    for m in matches:
+        print(f"Title: {m.title}, Neighborhood: {m.neighborhood}, Price: {m.price}, Bedrooms: {m.bedrooms}, Bathrooms: {m.bathrooms}")
