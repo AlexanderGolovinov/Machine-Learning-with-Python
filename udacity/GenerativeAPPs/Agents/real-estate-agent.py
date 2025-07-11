@@ -216,7 +216,7 @@ def augment_listing_with_llm(listing, buyer_preferences, api_key=api_key):
     The buyer's preferences are: {buyer_preferences}
     Rewrite the description to subtly emphasize features that match the buyer's preferences, but do not invent or change any facts. Keep it factual and appealing.
     """
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         api_key=api_key,
         messages=[{"role": "user", "content": prompt}],
