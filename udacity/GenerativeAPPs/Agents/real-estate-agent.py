@@ -205,12 +205,37 @@ def search_listings(preferences: str, top_k: int = 5):
     results = table.search(pref_embedding).limit(top_k).to_pydantic(Listing)
     return results
 
+def augment_listing_with_llm(listing, buyer_preferences, api_key=api_key):
+    """
+    Use LLM to augment the listing description, emphasizing features that match buyer preferences,
+    without altering factual information.
+    """
+    prompt = f"""
+    You are a real estate agent. Here is a property listing description:
+    ---
+    {listing.description}
+    ---
+    The buyer's preferences are: {buyer_preferences}
+    Rewrite the description to subtly emphasize features that match the buyer's preferences, but do not invent or change any facts. Keep it factual and appealing.
+    """
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        api_key=api_key,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=200,
+        temperature=0.7
+    )
+    return response.choices[0].message.content.strip()
+
 # Example usage of the search function
 user_prompt = "3 bedrooms, 2 bathrooms, modern kitchen, near downtown, budget $500,000"
 
 if __name__ == "__main__":
     buyer_preferences = user_prompt
     matches = search_listings(buyer_preferences, top_k=3)
-    print("\nTop matches for buyer preferences:")
+    print("\nTop matches for buyer preferences (with tailored descriptions):")
     for m in matches:
+        augmented = augment_listing_with_llm(m, buyer_preferences)
         print(f"Title: {m.title}, Neighborhood: {m.neighborhood}, Price: {m.price}, Bedrooms: {m.bedrooms}, Bathrooms: {m.bathrooms}")
+        print(f"Original Description: {m.description}")
+        print(f"Augmented Description: {augmented}\n")
